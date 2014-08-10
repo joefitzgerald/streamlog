@@ -34,7 +34,7 @@ type StreamLogger interface {
 	SetPrefix(prefix string)
 }
 
-// New creates a new StdOutErrStreamLogger. The out and err variables set the
+// NewWithWriters creates a new StdOutErrStreamLogger. The out and err variables set the
 // destination to which log data will be written.
 // The prefix appears at the beginning of each generated log line.
 // The flag argument defines the logging properties.
@@ -44,7 +44,7 @@ func NewWithWriters(out io.Writer, err io.Writer, prefix string, flag int) *StdO
 	return &StdOutErrStreamLogger{out: outLogger, err: errLogger, prefix: prefix, flag: flag}
 }
 
-// StdOutErrLogger is an OutErrLogger using stderr and stdout
+// StdOutErrStreamLogger is an OutErrLogger using stderr and stdout
 type StdOutErrStreamLogger struct {
 	out    standardlog.Logger // Logger for OutputStream.Out
 	err    standardlog.Logger // Logger for OutputStream.Err
@@ -52,6 +52,8 @@ type StdOutErrStreamLogger struct {
 	flag   int                // properties
 }
 
+// New creates a new StdOutErrStreamLogger that writes to os.Stdout and
+// os.Stderr.
 func (l *StdOutErrStreamLogger) New() *StdOutErrStreamLogger {
 	return NewWithWriters(os.Stdout, os.Stderr, "", log.LstdFlags)
 }
