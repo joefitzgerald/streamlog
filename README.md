@@ -8,13 +8,16 @@ library provides a StreamLogger that targets both `stdout` and `stderr`.
 
 ## Usage
 
+`go get -u github.com/joefitzgerald/streamlog`
+
 ```go
-import github.com/joefitzgerald/streamlog
+import "github.com/joefitzgerald/streamlog"
 
 func main() {
   l := streamlog.New()
   l.Println(streamlog.Out, "Hello")
   l.PrintlnOut("World")
+  l.Println(streamlog.Err, "Earth")
   l.PrintlnErr("#%!!")
 }
 ```
