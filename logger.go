@@ -45,8 +45,8 @@ func New() StreamLogger {
 // The prefix appears at the beginning of each generated log line.
 // The flag argument defines the logging properties.
 func NewWithWriters(out io.Writer, err io.Writer, prefix string, flag int) StreamLogger {
-	outLogger := log.New(os.Stdout, prefix, log.LstdFlags)
-	errLogger := log.New(os.Stderr, prefix, log.LstdFlags)
+	outLogger := log.New(out, prefix, flag)
+	errLogger := log.New(err, prefix, flag)
 	return &outErrStreamLogger{out: outLogger, err: errLogger, prefix: prefix, flag: flag}
 }
 

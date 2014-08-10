@@ -6,4 +6,13 @@ library provides a StreamLogger that targets both `stdout` and `stderr`.
 
 ## Usage
 
-`import github.com/joefitzgerald/streamlog`
+```go
+import github.com/joefitzgerald/streamlog
+
+func main() {
+  l := streamlog.New()
+  l.Println(streamlog.Out, "Hello")
+  l.PrintlnOut("World")
+  l.PrintlnErr("#%!!")
+}
+```
