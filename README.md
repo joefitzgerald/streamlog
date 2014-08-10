@@ -4,7 +4,16 @@
 
 The go standard library includes a default
 [log.Logger](http://golang.org/pkg/log/#Logger) that targets `stderr`. This
-library provides a StreamLogger that targets both `stdout` and `stderr`.
+library provides a Logger that internally has an `out` and an `err` log.Logger.
+
+* `streamlog.New()`: Provides you a `Logger` targeting `os.Stdout` and `os.Stderr`
+  with a prefix of `""` and flags of `log.LstdFlags`
+* `streamlog.NewWithWriters(...)`: Provides you a `Logger` targeting the supplied
+  out and err `io.Writer`, prefix, and flags
+* `streamlog.NewWithWriters(...)`: Provides you a `Logger` targeting the supplied
+  out and err `standardlog.Logger`, prefix, and flags
+
+Note: `standardlog.Logger` is satisfied by the standard library `log.Logger`.
 
 ## Usage
 
