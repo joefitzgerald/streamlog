@@ -6,7 +6,7 @@
 
 The go standard library includes a default
 [log.Logger](http://golang.org/pkg/log/#Logger) that targets `stderr`. Sometimes
-when writing a command line interface (CLI), the output to `stderr and `stdout`
+when writing a command line interface (CLI), the output to `stderr` and `stdout`
 is significant and you want to write tests to verify the output is correct.
 
 ## Differences With The Standard Library `log.Logger`
