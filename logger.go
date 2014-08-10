@@ -44,6 +44,14 @@ func NewWithWriters(out io.Writer, err io.Writer, prefix string, flag int) *StdO
 	return &StdOutErrStreamLogger{out: outLogger, err: errLogger, prefix: prefix, flag: flag}
 }
 
+// NewWithLoggers creates a new StdOutErrStreamLogger. The out and err variables
+// set the destination to which log data will be written.
+// The prefix appears at the beginning of each generated log line.
+// The flag argument defines the logging properties.
+func NewWithLoggers(out standardlog.Logger, err standardlog.Logger, prefix string, flag int) *StdOutErrStreamLogger {
+	return &StdOutErrStreamLogger{out: out, err: err, prefix: prefix, flag: flag}
+}
+
 // StdOutErrStreamLogger is an OutErrLogger using stderr and stdout
 type StdOutErrStreamLogger struct {
 	out    standardlog.Logger // Logger for OutputStream.Out
