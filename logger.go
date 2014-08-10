@@ -9,17 +9,17 @@ import (
 	"github.com/joefitzgerald/standardlog"
 )
 
-// OutputStream represents standard output streams
+// OutputStream represents standard output streams.
 type OutputStream int
 
-// The standard output streams
+// The standard output streams.
 const (
 	Out OutputStream = iota
 	Err
 )
 
-// StreamLogger allows logging to stderr and stdout streams
-type StreamLogger interface {
+// Logger allows logging to out and err output streams.
+type Logger interface {
 	Flags() int
 	Prefix() string
 	Print(s OutputStream, v ...interface{})
@@ -35,30 +35,30 @@ type StreamLogger interface {
 	SetPrefix(prefix string)
 }
 
-// New creates a new StreamLogger that writes to os.Stdout and os.Stderr.
-func New() StreamLogger {
+// New creates a new Logger that writes to os.Stdout and os.Stderr.
+func New() Logger {
 	return NewWithWriters(os.Stdout, os.Stderr, "", log.LstdFlags)
 }
 
-// NewWithWriters creates a new StdOutErrStreamLogger. The out and err variables set the
+// NewWithWriters creates a new outErrStreamLogger. The out and err variables set the
 // destination to which log data will be written.
 // The prefix appears at the beginning of each generated log line.
 // The flag argument defines the logging properties.
-func NewWithWriters(out io.Writer, err io.Writer, prefix string, flag int) StreamLogger {
+func NewWithWriters(out io.Writer, err io.Writer, prefix string, flag int) Logger {
 	outLogger := log.New(out, prefix, flag)
 	errLogger := log.New(err, prefix, flag)
 	return &outErrStreamLogger{out: outLogger, err: errLogger, prefix: prefix, flag: flag}
 }
 
-// NewWithLoggers creates a new StdOutErrStreamLogger. The out and err variables
+// NewWithLoggers creates a new outErrStreamLogger. The out and err variables
 // set the destination to which log data will be written.
 // The prefix appears at the beginning of each generated log line.
 // The flag argument defines the logging properties.
-func NewWithLoggers(out standardlog.Logger, err standardlog.Logger, prefix string, flag int) StreamLogger {
+func NewWithLoggers(out standardlog.Logger, err standardlog.Logger, prefix string, flag int) Logger {
 	return &outErrStreamLogger{out: out, err: err, prefix: prefix, flag: flag}
 }
 
-// StdOutErrStreamLogger is an OutErrLogger using stderr and stdout
+// outErrStreamLogger is a Logger using stderr and stdout
 type outErrStreamLogger struct {
 	mu     sync.Mutex         // ensures atomic writes; protects the following fields
 	out    standardlog.Logger // Logger for OutputStream.Out

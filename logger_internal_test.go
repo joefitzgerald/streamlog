@@ -11,7 +11,7 @@ import (
 
 var _ = Describe("Logger", func() {
 	var (
-		sl StreamLogger
+		sl Logger
 		l  *outErrStreamLogger
 		ok bool
 	)

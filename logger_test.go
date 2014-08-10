@@ -8,9 +8,9 @@ import (
 	. "github.com/onsi/gomega"
 )
 
-var _ = Describe("StreamLogger", func() {
+var _ = Describe("Logger", func() {
 	var (
-		sl streamlog.StreamLogger
+		sl streamlog.Logger
 	)
 
 	Describe("API", func() {
@@ -19,7 +19,7 @@ var _ = Describe("StreamLogger", func() {
 				sl = streamlog.New()
 			})
 
-			It("should create a StreamLogger", func() {
+			It("should create a Logger", func() {
 				Ω(sl).ShouldNot(BeNil())
 			})
 		})
@@ -35,7 +35,7 @@ var _ = Describe("StreamLogger", func() {
 				sl = streamlog.NewWithWriters(&ow, &ew, "", 0)
 			})
 
-			It("should create a StreamLogger", func() {
+			It("should create a Logger", func() {
 				Ω(sl).ShouldNot(BeNil())
 			})
 

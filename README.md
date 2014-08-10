@@ -11,13 +11,22 @@ library provides a StreamLogger that targets both `stdout` and `stderr`.
 `go get -u github.com/joefitzgerald/streamlog`
 
 ```go
+package main
+
 import "github.com/joefitzgerald/streamlog"
 
 func main() {
   l := streamlog.New()
+  l.SetPrefix("") // You can set the prefix of the underlying log.Loggers
+  l.SetFlags(0)   // You can set the flags of the underlying log.Loggers
   l.Println(streamlog.Out, "Hello")
   l.PrintlnOut("World")
   l.Println(streamlog.Err, "Earth")
   l.PrintlnErr("#%!!")
+  logStuffOut(l, "$")
+}
+
+func logStuffOut(l streamlog.Logger, s string) {
+  l.Println(streamlog.Out, s)
 }
 ```
