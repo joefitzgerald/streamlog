@@ -44,7 +44,7 @@ var _ = Describe("StreamLogger", func() {
 				Ω(ow.Len()).Should(Equal(0))
 				Ω(ew.Len()).Should(Equal(0))
 				sl.Println(streamlog.Out, "Hello, World!")
-				Ω(ow.String()).Should(BeEquivalentTo("[Hello, World!]\n"))
+				Ω(ow.String()).Should(BeEquivalentTo("Hello, World!\n"))
 				Ω(ow.Len()).ShouldNot(Equal(0))
 				Ω(ew.Len()).Should(Equal(0))
 			})

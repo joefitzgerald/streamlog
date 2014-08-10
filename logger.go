@@ -104,9 +104,9 @@ func (l *outErrStreamLogger) SetFlags(flag int) {
 func (l *outErrStreamLogger) Printf(s OutputStream, format string, v ...interface{}) {
 	switch s {
 	case Out:
-		l.out.Printf(format, v)
+		l.out.Printf(format, v...)
 	case Err:
-		l.err.Printf(format, v)
+		l.err.Printf(format, v...)
 	}
 }
 
@@ -115,9 +115,9 @@ func (l *outErrStreamLogger) Printf(s OutputStream, format string, v ...interfac
 func (l *outErrStreamLogger) Print(s OutputStream, v ...interface{}) {
 	switch s {
 	case Out:
-		l.out.Print(v)
+		l.out.Print(v...)
 	case Err:
-		l.err.Print(v)
+		l.err.Print(v...)
 	}
 }
 
@@ -126,44 +126,44 @@ func (l *outErrStreamLogger) Print(s OutputStream, v ...interface{}) {
 func (l *outErrStreamLogger) Println(s OutputStream, v ...interface{}) {
 	switch s {
 	case Out:
-		l.out.Println(v)
+		l.out.Println(v...)
 	case Err:
-		l.err.Println(v)
+		l.err.Println(v...)
 	}
 }
 
 // Printf calls l.Output to print to the logger.
 // Arguments are handled in the manner of fmt.Printf.
 func (l *outErrStreamLogger) PrintfErr(format string, v ...interface{}) {
-	l.err.Printf(format, v)
+	l.err.Printf(format, v...)
 }
 
 // Print calls l.Output to print to the logger.
 // Arguments are handled in the manner of fmt.Print.
 func (l *outErrStreamLogger) PrintErr(v ...interface{}) {
-	l.err.Print(v)
+	l.err.Print(v...)
 }
 
 // Println calls l.Output to print to the logger.
 // Arguments are handled in the manner of fmt.Println.
 func (l *outErrStreamLogger) PrintlnErr(v ...interface{}) {
-	l.err.Println(v)
+	l.err.Println(v...)
 }
 
 // Printf calls l.Output to print to the logger.
 // Arguments are handled in the manner of fmt.Printf.
 func (l *outErrStreamLogger) PrintfOut(format string, v ...interface{}) {
-	l.out.Printf(format, v)
+	l.out.Printf(format, v...)
 }
 
 // Print calls l.Output to print to the logger.
 // Arguments are handled in the manner of fmt.Print.
 func (l *outErrStreamLogger) PrintOut(v ...interface{}) {
-	l.out.Print(v)
+	l.out.Print(v...)
 }
 
 // Println calls l.Output to print to the logger.
 // Arguments are handled in the manner of fmt.Println.
 func (l *outErrStreamLogger) PrintlnOut(v ...interface{}) {
-	l.out.Println(v)
+	l.out.Println(v...)
 }
