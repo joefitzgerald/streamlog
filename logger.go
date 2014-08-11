@@ -31,16 +31,15 @@ type Logger interface {
 	PrintOut(v ...interface{})
 	PrintfOut(format string, v ...interface{})
 	PrintlnOut(v ...interface{})
-	SetFlags(flag int)
-	SetPrefix(prefix string)
 }
 
-// New creates a new Logger that writes to os.Stdout and os.Stderr.
+// New creates a new Logger that writes to os.Stdout and os.Stderr with no
+// prefix and no flags.
 func New() Logger {
-	return NewWithWriters(os.Stdout, os.Stderr, "", log.LstdFlags)
+	return NewWithWriters(os.Stdout, os.Stderr, "", 0)
 }
 
-// NewWithWriters creates a new outErrStreamLogger. The out and err variables set the
+// NewWithWriters creates a new Logger. The out and err variables set the
 // destination to which log data will be written.
 // The prefix appears at the beginning of each generated log line.
 // The flag argument defines the logging properties.
@@ -50,7 +49,7 @@ func NewWithWriters(out io.Writer, err io.Writer, prefix string, flag int) Logge
 	return &outErrStreamLogger{out: outLogger, err: errLogger, prefix: prefix, flag: flag}
 }
 
-// NewWithLoggers creates a new outErrStreamLogger. The out and err variables
+// NewWithLoggers creates a new Logger. The out and err variables
 // set the destination to which log data will be written.
 // The prefix appears at the beginning of each generated log line.
 // The flag argument defines the logging properties.
@@ -82,7 +81,7 @@ func (l *outErrStreamLogger) Prefix() string {
 }
 
 // SetPrefix sets the output prefix for the logger.
-func (l *outErrStreamLogger) SetPrefix(prefix string) {
+func (l *outErrStreamLogger) setPrefix(prefix string) {
 	l.mu.Lock()
 	defer l.mu.Unlock()
 	l.prefix = prefix
@@ -91,7 +90,7 @@ func (l *outErrStreamLogger) SetPrefix(prefix string) {
 }
 
 // SetFlags sets the output flags for the logger.
-func (l *outErrStreamLogger) SetFlags(flag int) {
+func (l *outErrStreamLogger) setFlags(flag int) {
 	l.mu.Lock()
 	defer l.mu.Unlock()
 	l.flag = flag

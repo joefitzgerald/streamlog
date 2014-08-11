@@ -38,12 +38,11 @@ var _ = Describe("Logger", func() {
 			It("should propagate flags to internal log.Loggers", func() {
 				outputLogger, _ := l.out.(*log.Logger)
 				errorLogger, _ := l.err.(*log.Logger)
-				Ω(log.LstdFlags).ShouldNot(Equal(log.Ldate))
-				Ω(sl.Flags()).Should(Equal(log.LstdFlags))
-				Ω(outputLogger.Flags()).Should(Equal(log.LstdFlags))
-				Ω(errorLogger.Flags()).Should(Equal(log.LstdFlags))
+				Ω(sl.Flags()).Should(Equal(0))
+				Ω(outputLogger.Flags()).Should(Equal(0))
+				Ω(errorLogger.Flags()).Should(Equal(0))
 
-				sl.SetFlags(log.Ldate)
+				l.setFlags(log.Ldate)
 
 				Ω(sl.Flags()).Should(Equal(log.Ldate))
 				Ω(outputLogger.Flags()).Should(Equal(log.Ldate))
@@ -57,7 +56,7 @@ var _ = Describe("Logger", func() {
 				Ω(outputLogger.Prefix()).Should(Equal(""))
 				Ω(errorLogger.Prefix()).Should(Equal(""))
 
-				sl.SetPrefix("test")
+				l.setPrefix("test")
 
 				Ω(sl.Prefix()).Should(Equal("test"))
 				Ω(outputLogger.Prefix()).Should(Equal("test"))
